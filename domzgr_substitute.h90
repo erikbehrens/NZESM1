@@ -1,0 +1,122 @@
+   !!----------------------------------------------------------------------
+   !!                    ***  domzgr_substitute.h90   ***
+   !!----------------------------------------------------------------------
+   !! ** purpose :   substitute fsdep. and fse.., the vert. depth and scale
+   !!      factors depending on the vertical coord. used, using CPP macro.
+   !!----------------------------------------------------------------------
+   !! History :  1.0  !  2005-10  (A. Beckmann, G. Madec) generalisation to all coord.
+   !!            3.1  !  2009-02  (G. Madec, M. Leclair)  pure z* coordinate
+   !!----------------------------------------------------------------------
+
+#if defined key_vvl
+! s* or z*-coordinate (3D + time dependency) + use of additional now arrays (..._n)
+
+#   define  fse3t_b(i,j,k)   e3t_b(i,j,k)
+#   define  fse3u_b(i,j,k)   e3u_b(i,j,k)
+#   define  fse3v_b(i,j,k)   e3v_b(i,j,k)
+#   define  fse3uw_b(i,j,k)  e3uw_b(i,j,k)
+#   define  fse3vw_b(i,j,k)  e3vw_b(i,j,k)
+
+#   define  fsdept_n(i,j,k)  gdept_n(i,j,k)
+#   define  fsdepw_n(i,j,k)  gdepw_n(i,j,k)
+#   define  fsde3w_n(i,j,k)  gdep3w_n(i,j,k)
+#   define  fse3t_n(i,j,k)   e3t_n(i,j,k)
+#   define  fse3u_n(i,j,k)   e3u_n(i,j,k)
+#   define  fse3v_n(i,j,k)   e3v_n(i,j,k)
+#   define  fse3f_n(i,j,k)   e3f_n(i,j,k)
+#   define  fse3w_n(i,j,k)   e3w_n(i,j,k)
+#   define  fse3uw_n(i,j,k)  e3uw_n(i,j,k)
+#   define  fse3vw_n(i,j,k)  e3vw_n(i,j,k)
+
+#   define  fsdept_b(i,j,k)  gdept_b(i,j,k)
+#   define  fsdepw_b(i,j,k)  gdepw_b(i,j,k)
+#   define  fse3w_b(i,j,k)   e3w_b(i,j,k)
+
+#   define  fse3t_a(i,j,k)   e3t_a(i,j,k)
+#   define  fse3u_a(i,j,k)   e3u_a(i,j,k)
+#   define  fse3v_a(i,j,k)   e3v_a(i,j,k)
+
+#   define  fse3t_m(i,j)     e3t_m(i,j)
+
+#   define  hu_a(i,j)        ehu_a(i,j)
+#   define  hur_a(i,j)       ehur_a(i,j)
+#   define  hv_a(i,j)        ehv_a(i,j)
+#   define  hvr_a(i,j)       ehvr_a(i,j)
+#   define  hu_b(i,j)        ehu_b(i,j)
+#   define  hur_b(i,j)       ehur_b(i,j)
+#   define  hv_b(i,j)        ehv_b(i,j)
+#   define  hvr_b(i,j)       ehvr_b(i,j)
+
+! This part should be removed one day ...
+! ... In that case all occurence of the above statement functions
+!     have to be replaced in the code by xxx_n
+#   define  fsdept(i,j,k)    gdept_n(i,j,k)
+#   define  fsdepw(i,j,k)    gdepw_n(i,j,k)
+#   define  fsde3w(i,j,k)    gdep3w_n(i,j,k)
+#   define  fse3t(i,j,k)     e3t_n(i,j,k) 
+#   define  fse3u(i,j,k)     e3u_n(i,j,k) 
+#   define  fse3v(i,j,k)     e3v_n(i,j,k) 
+#   define  fse3f(i,j,k)     e3f_n(i,j,k) 
+#   define  fse3w(i,j,k)     e3w_n(i,j,k) 
+#   define  fse3uw(i,j,k)    e3uw_n(i,j,k)
+#   define  fse3vw(i,j,k)    e3vw_n(i,j,k)
+
+#else
+! z- or s-coordinate (1D or 3D + no time dependency) use reference in all cases
+
+#   define  fse3t_b(i,j,k)   e3t_0(i,j,k)
+#   define  fse3u_b(i,j,k)   e3u_0(i,j,k)
+#   define  fse3v_b(i,j,k)   e3v_0(i,j,k)
+#   define  fse3uw_b(i,j,k)  e3uw_0(i,j,k)
+#   define  fse3vw_b(i,j,k)  e3vw_0(i,j,k)
+
+#   define  fsdept_n(i,j,k)  gdept_0(i,j,k)
+#   define  fsdepw_n(i,j,k)  gdepw_0(i,j,k)
+#   define  fsde3w_n(i,j,k)  gdep3w_0(i,j,k)
+#   define  fse3t_n(i,j,k)   e3t_0(i,j,k)
+#   define  fse3u_n(i,j,k)   e3u_0(i,j,k)
+#   define  fse3v_n(i,j,k)   e3v_0(i,j,k)
+#   define  fse3f_n(i,j,k)   e3f_0(i,j,k)
+#   define  fse3w_n(i,j,k)   e3w_0(i,j,k)
+#   define  fse3uw_n(i,j,k)  e3uw_0(i,j,k)
+#   define  fse3vw_n(i,j,k)  e3vw_0(i,j,k)
+
+#   define  fsdept_b(i,j,k)  gdept_0(i,j,k)
+#   define  fsdepw_b(i,j,k)  gdepw_0(i,j,k)
+#   define  fse3w_b(i,j,k)   e3w_0(i,j,k)
+
+#   define  fse3t_a(i,j,k)   e3t_0(i,j,k)
+#   define  fse3u_a(i,j,k)   e3u_0(i,j,k)
+#   define  fse3v_a(i,j,k)   e3v_0(i,j,k)
+
+#   define  fse3t_m(i,j)     e3t_0(i,j,1)
+
+#   define  hu_a(i,j)        hu(i,j)
+#   define  hur_a(i,j)       hur(i,j)
+#   define  hv_a(i,j)        hv(i,j)
+#   define  hvr_a(i,j)       hvr(i,j)
+#   define  hu_b(i,j)        hu(i,j)
+#   define  hur_b(i,j)       hur(i,j)
+#   define  hv_b(i,j)        hv(i,j)
+#   define  hvr_b(i,j)       hvr(i,j)
+
+! This part should be removed one day ...
+! ... In that case all occurence of the above statement functions
+!     have to be replaced in the code by xxx_n
+#   define  fsdept(i,j,k)    gdept_0(i,j,k)
+#   define  fsdepw(i,j,k)    gdepw_0(i,j,k)
+#   define  fsde3w(i,j,k)    gdep3w_0(i,j,k)
+#   define  fse3t(i,j,k)     e3t_0(i,j,k)
+#   define  fse3u(i,j,k)     e3u_0(i,j,k)
+#   define  fse3v(i,j,k)     e3v_0(i,j,k)
+#   define  fse3f(i,j,k)     e3f_0(i,j,k)
+#   define  fse3w(i,j,k)     e3w_0(i,j,k)
+#   define  fse3uw(i,j,k)    e3uw_0(i,j,k)
+#   define  fse3vw(i,j,k)    e3vw_0(i,j,k)
+
+#endif
+   !!----------------------------------------------------------------------
+   !! NEMO/OPA 3.3 , NEMO Consortium (2010)
+   !! $Id$
+   !! Software governed by the CeCILL licence (NEMOGCM/NEMO_CeCILL.txt)
+   !!----------------------------------------------------------------------
